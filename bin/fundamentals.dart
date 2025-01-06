@@ -1,5 +1,15 @@
-import 'package:fundamentals/fundamentals.dart' as fundamentals;
+//bin/fundamentals.dart
 
-void main(List<String> arguments) {
-  print('Hello world: ${fundamentals.calculate()}!');
+import 'dart:io';
+import 'dart:math';
+
+void main() {
+  print('Hello, World!');
+  print("Welcome to Dart Language");
+  print('What is your name?');
+  String? name = stdin.readLineSync();
+  print('What is your age?');
+  String? age = stdin.readLineSync();
+  int? ageInt = int.parse(age!);
+  print('Hello, $name! You are $ageInt years old.');
 }
