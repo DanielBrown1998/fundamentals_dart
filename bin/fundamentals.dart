@@ -1,7 +1,6 @@
 //bin/fundamentals.dart
 
 import 'dart:io';
-import 'dart:math';
 
 void main() {
   print('Hello, World!');
