@@ -1,14 +1,11 @@
 //bin/fundamentals.dart
-
+import 'package:fundamentals/fundamentals.dart';
 import 'dart:io';
 
 void main() {
-  print('Hello, World!');
-  print("Welcome to Dart Language");
-  print('What is your name?');
-  String? name = stdin.readLineSync();
-  print('What is your age?');
-  String? age = stdin.readLineSync();
-  int? ageInt = int.parse(age!);
-  print('Hello, $name! You are $ageInt years old.');
+  List<Conta> contas = [
+    Conta(titular: Pessoa(nome: "Rafael", cpf: '12342341231', dataNascimento: '21-04-2001')),
+    Conta(titular: Pessoa(nome: "Rafaela", cpf: '00000000000', dataNascimento: '23-07-1998')),
+    Conta(titular: Pessoa(nome: "Marcelo", cpf: '99999999999', dataNascimento: '19-04-1971'))
+  ];
 }
