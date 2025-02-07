@@ -1,51 +1,48 @@
-//lib/fundamentals.dart
-class Conta {
-  final Pessoa titular;
-  double _saldo = 0;
-  Conta({required this.titular});
+import 'package:fundamentals/abstract/fundamentals.dart';
 
-  depositar(double value) {
-    print("depositando $value reais na conta da ${titular.nome}");
-    _saldo += value;
-    print("Deposito realizado com sucesso");
-    print("${titular.nome}, valor atualizado: $_saldo");
+class ContaCorrente extends Conta {
+  ContaCorrente({required super.titular}) {
+    saldo += 100;
   }
 
-  bool sacar(double value) {
-    if (_saldo < value) {
-      print("Operação não efetuada!");
-      print("Saldo insuficiente!");
-      return false;
+  @override
+  emprestimo(double value, int tempoPagamentoAnos) {
+    if (value > valorMaxEmp) {
+      print("Emprestimo fora dos limites estabelecidos");
+      print("Valor máximo permitido: $valorMaxEmp");
+    } else {
+      saldo += value;
+      for (int i = 0; i < tempoPagamentoAnos; i++) {
+        valorDividaTotal += value * taxaEmp;
+        value = value * taxaEmp;
+      }
     }
-    print("sacando $value reais na conta da ${titular.nome}");
-    _saldo -= value;
-    print("Saque realizado com sucesso");
-    print("${titular.nome}, valor atualizado: $_saldo");
-    return true;
-  }
-
-  bool transferir(double value, Conta conta) {
-    if (_saldo < value) {
-      print("Operação não efetuada!");
-      print("Saldo insuficiente!");
-      return false;
-    }
-    _saldo -= value;
-    conta.depositar(value);
-    print("transferência realizada com sucesso");
-    print("${titular.nome}, valor atualizado: $_saldo");
-    return true;
-  }
-
-  get saldo {
-    return "_";
   }
 }
 
-class Pessoa {
-  String nome;
-  String cpf;
-  String dataNascimento;
+class ContaPoupanca extends Conta {
+  ContaPoupanca({required super.titular});
 
-  Pessoa({required this.nome, required this.cpf, required this.dataNascimento});
+  @override
+  bool transferir(double value, Conta conta) {
+    if (conta.titular.nome != super.titular.nome) {
+      print("Conta poupança s[o pode transferir fundos"
+          "para uma outra conta do próprio titulas]");
+      return false;
+    }
+    return super.transferir(value, conta);
+  }
+}
+
+class PF extends Pessoa {
+  final String dataNascimento;
+  final String cpf;
+  PF({required super.nome, required this.cpf, required this.dataNascimento});
+}
+
+class PJ extends Pessoa {
+  final String cnpj;
+  final String razaoSocial;
+
+  PJ({required super.nome, required this.cnpj, required this.razaoSocial});
 }
