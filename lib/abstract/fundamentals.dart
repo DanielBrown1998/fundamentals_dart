@@ -1,15 +1,17 @@
 //lib/abstract/fundamentals.dart
-abstract class Conta {
+abstract class Conta implements Rendimento{
   final Pessoa titular;
   double _saldo = 0;
-  double taxaEmp = 0.13;
+  final double taxaEmp;
   double valorDividaTotal = 0;
-  double valorMaxEmp = .2;
+  double valorEmp = 0;
+  final double valorMaxEmp;
 
-  
-  Conta({required this.titular});
+  Conta({required this.titular, required this.valorMaxEmp, required this.taxaEmp});
 
-  emprestimo(double value, int tempoPagamentoAnos) {}
+  List<double>? emprestimo(double value, int tempoPagamentoAnos) {
+    return [];
+  }
 
   depositar(double value) {
     print("depositando $value reais na conta da ${titular.nome}");
@@ -57,4 +59,9 @@ abstract class Pessoa {
   String nome;
 
   Pessoa({required this.nome});
+}
+
+abstract class Rendimento {
+  double calculaRendimento(double value, int time);
+  double calculaJuros(double valueEmp, double valuePay);
 }
