@@ -1,7 +1,10 @@
 import 'package:fundamentals/abstract/fundamentals.dart';
 
-class ContaCorrente extends Conta {
-  ContaCorrente({required super.titular, required super.taxaEmp, required super.valorMaxEmp}) {
+class ContaCorrente extends Conta with Imposto {
+  ContaCorrente(
+      {required super.titular,
+      required super.taxaEmp,
+      required super.valorMaxEmp}) {
     saldo += 100;
   }
 
@@ -18,6 +21,7 @@ class ContaCorrente extends Conta {
         valorDividaTotal += value * taxaEmp;
         value += value * taxaEmp;
       }
+      valorDividaTotal += calculaTaxa(value);
       double valorPay = valorDividaTotal;
       return [valorEmp, valorPay];
     }
@@ -38,7 +42,10 @@ class ContaCorrente extends Conta {
 }
 
 class ContaPoupanca extends Conta {
-  ContaPoupanca({required super.titular, required super.taxaEmp, required super.valorMaxEmp});
+  ContaPoupanca(
+      {required super.titular,
+      required super.taxaEmp,
+      required super.valorMaxEmp});
 
   @override
   bool transferir(double value, Conta conta) {

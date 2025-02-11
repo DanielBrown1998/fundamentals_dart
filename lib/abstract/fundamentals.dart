@@ -7,7 +7,10 @@ abstract class Conta implements Rendimento{
   double valorEmp = 0;
   final double valorMaxEmp;
 
-  Conta({required this.titular, required this.valorMaxEmp, required this.taxaEmp});
+  Conta(
+      {required this.titular,
+      required this.valorMaxEmp,
+      required this.taxaEmp});
 
   List<double>? emprestimo(double value, int tempoPagamentoAnos) {
     return [];
@@ -64,4 +67,12 @@ abstract class Pessoa {
 abstract class Rendimento {
   double calculaRendimento(double value, int time);
   double calculaJuros(double valueEmp, double valuePay);
+}
+
+mixin Imposto {
+  double taxa = 0.04;
+
+  double calculaTaxa(double value) {
+    return value * taxa;
+  }
 }
